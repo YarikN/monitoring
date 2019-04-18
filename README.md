@@ -13,3 +13,5 @@ sudo docker run -p 9090:9090 prometheus
 
 
 http://docs.shippable.com/deploy/tutorial/deploy-to-gcp-gke-helm/
+
+https://github.com/jonbcampos/kubernetes-series
