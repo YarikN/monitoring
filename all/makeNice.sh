@@ -1,6 +1,6 @@
 kubectl create -f namespace-mon.json;
-kubectl apply -f helm-rbac.yaml;
-helm init --service-account helm;
+kubectl create -f helm-rbac.yaml;
+helm init --service-account tiller;
 sleep 2;
 helm install --namespace monitoring --name prometheus stable/prometheus --set-file extraScrapeConfigs=extraScrapeConfigs.yaml;
 sleep 2;
