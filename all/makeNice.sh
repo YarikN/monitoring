@@ -1,11 +1,13 @@
 kubectl create -f namespace-mon.json;
-helm repo update;
-helm init;
+kubectl apply -f helm-rbac.yaml;
+helm init --service-account helm;
 sleep 2;
 helm install --namespace monitoring --name prometheus stable/prometheus --set-file extraScrapeConfigs=extraScrapeConfigs.yaml;
 sleep 2;
-kubectl create -f prometheus-config.yaml;
-kubectl create -f prometheus-rules.yaml;
+#kubectl create -f prometheus-config.yaml;
+#kubectl create -f prometheus-rules.yaml;
+kubectl apply -f prometheus-config.yaml
+kubectl apply -f prometheus-rules.yaml
 helm install --namespace monitoring --name grafana stable/grafana --set adminUser=admin --set adminPassword=admin;
 kubectl get pods -n monitoring;
 export POD_NAME=$(kubectl get pods --namespace monitoring -l "app=grafana,release=grafana" -o jsonpath="{.items[0].metadata.name}");
